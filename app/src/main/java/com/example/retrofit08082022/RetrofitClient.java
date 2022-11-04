@@ -17,9 +17,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClient {
     private static RetrofitClient instance = null;
     private Retrofit retrofit;
+    private static ApiService apiService = null;
 
     private RetrofitClient() {
-
+        retrofit = initRetrofit();
+        apiService = retrofit.create(ApiService.class);
     }
 
     public static RetrofitClient getInstance() {
@@ -29,6 +31,9 @@ public class RetrofitClient {
         return instance;
     }
 
+    public static ApiService getApiService() {
+        return apiService;
+    }
     private Retrofit initRetrofit() {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(30, TimeUnit.SECONDS)
